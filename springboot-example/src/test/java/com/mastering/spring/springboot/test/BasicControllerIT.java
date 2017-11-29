@@ -3,6 +3,7 @@ package com.mastering.spring.springboot.test;
 import org.hamcrest.Matchers;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mastering.spring.springboot.Application;
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -29,6 +29,18 @@ public class BasicControllerIT {
 	public void welcome() throws Exception {
 		ResponseEntity<String> response = template.getForEntity(createURL("/welcome"), String.class);
 		assertThat(response.getBody(), Matchers.equalTo("Hello World!"));
+	}
+	
+	@Test
+	public void welcomeWithObject() throws Exception {
+		ResponseEntity<String> response = template.getForEntity(createURL("/welcome-with-object"), String.class);
+		assertThat(response.getBody(), containsString("Hello World!"));
+	}
+	
+	@Test
+	public void welcomeWithParameter() throws Exception {
+		ResponseEntity<String> response = template.getForEntity(createURL("/welcome-with-parameter/name/jack"), String.class);
+		assertThat(response.getBody(), containsString("Hello World, jack"));
 	}
 	
 	private String createURL(String uri) {
