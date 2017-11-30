@@ -46,7 +46,24 @@ public class TodoControllerTest {
 
 		String expected = "[" + "{id:1,user:Jack,desc:\"Learn Spring MVC\",done:false}" + ","
 				+ "{id:2,user:Jack,desc:\"Learn Struts\",done:false}" + "]";
-		
+
 		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
 	}
+
+	@Test
+	public void retrieveTodo() throws Exception {
+		Todo mockTodo = new Todo(1, "Jack", "Learn Spring MVC", new Date(), false);
+
+		BDDMockito.when(service.retrieveTodo(ArgumentMatchers.anyInt())).thenReturn(mockTodo);
+
+		MvcResult result = mvc
+				.perform(MockMvcRequestBuilders.get("/users/Jack/todos/1").accept(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk()).andReturn();
+
+		String expected = "{id:1,user:Jack,desc:\"Learn Spring MVC\",done:false}";
+
+		JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+
+	}
+
 }
