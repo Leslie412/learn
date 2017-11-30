@@ -13,12 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.mastering.spring.springboot.Application;
+import com.mastering.spring.springboot.test.util.Utils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BasicControllerIT {
 
-	private static final String LOCAL_HOST = "http://localhost:";
+	
 	
 	@LocalServerPort
 	private int port;
@@ -27,23 +28,21 @@ public class BasicControllerIT {
 	
 	@Test
 	public void welcome() throws Exception {
-		ResponseEntity<String> response = template.getForEntity(createURL("/welcome"), String.class);
+		ResponseEntity<String> response = template.getForEntity(Utils.createURL("/welcome", port), String.class);
 		assertThat(response.getBody(), Matchers.equalTo("Hello World!"));
 	}
 	
 	@Test
 	public void welcomeWithObject() throws Exception {
-		ResponseEntity<String> response = template.getForEntity(createURL("/welcome-with-object"), String.class);
+		ResponseEntity<String> response = template.getForEntity(Utils.createURL("/welcome-with-object", port), String.class);
 		assertThat(response.getBody(), containsString("Hello World!"));
 	}
 	
 	@Test
 	public void welcomeWithParameter() throws Exception {
-		ResponseEntity<String> response = template.getForEntity(createURL("/welcome-with-parameter/name/jack"), String.class);
+		ResponseEntity<String> response = template.getForEntity(Utils.createURL("/welcome-with-parameter/name/jack", port), String.class);
 		assertThat(response.getBody(), containsString("Hello World, jack"));
 	}
 	
-	private String createURL(String uri) {
-		return LOCAL_HOST + port + uri;
-	}
+
 }
