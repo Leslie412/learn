@@ -2,9 +2,12 @@ package com.mastering.spring.springboot.bean;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 
 @Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Todo {
 
 	private int id;
