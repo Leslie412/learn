@@ -32,6 +32,6 @@ public class TodoRepositoryTest {
 	@Test
 	public void findOne() {
 		Optional<Todo> todo = todoRepositoryCrud.findById(101L);
-		assertEquals("Todo Desc 1", todo.get())
+		assertEquals("Todo Desc 1", todo.get().getDescription());
 	}
 }
