@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RandomNumberController {
 
 	@RequestMapping("/random")
-	public List<Integer> random() {
+	public List<Long> random() {
 		return Stream.generate(Math::random).map(Math::round).limit(10)
-				.collect(Collectors.toCollection(ArrayList<Integer>::new));
+				.collect(Collectors.toCollection(ArrayList<Long>::new));
 	}
 }
