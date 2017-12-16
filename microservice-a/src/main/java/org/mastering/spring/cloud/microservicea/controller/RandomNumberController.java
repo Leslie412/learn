@@ -13,7 +13,7 @@ public class RandomNumberController {
 
 	@RequestMapping("/random")
 	public List<Long> random() {
-		return Stream.generate(Math::random).map(Math::round).limit(10)
+		return Stream.generate(Math::random).map(i -> i * 1000).map(Math::round).limit(10)
 				.collect(Collectors.toCollection(ArrayList<Long>::new));
 	}
 }
