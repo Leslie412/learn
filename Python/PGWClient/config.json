@@ -1,0 +1,6 @@
+{
+    "url":"https://payment-stg.global.rakuten.com/gp/Payment/V1/Authorize",
+    "Authentication_Key":"7B964F400351139C2DDCEC1B38EE186EFD81ABAF6A3656C673BE3B2877231518",
+    "Encryption Key":"",
+    "serviceId":"stg-jp-mobile"
+}
